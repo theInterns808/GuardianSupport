@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conversation Bot</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="chatbox">
+        <div id="messages"></div>
+        <input type="text" id="input" placeholder="Type a message...">
+        <button onclick="sendMessage()">Send</button>
+    </div>
+    <script>
+        async function sendMessage() {
+            const input = document.getElementById('input');
+            const message = input.value;
+            if (!message) return;
+
+            addMessage('user', message);
+            input.value = '';
+
+            const response = await getBotResponse(message);
+            addMessage('bot', response);
+        }
+
+        function addMessage(sender, message) {
+            const messages = document.getElementById('messages');
+            const div = document.createElement('div');
+            div.className = `message ${sender}`;
+            div.textContent = message;
+            messages.appendChild(div);
+            messages.scrollTop = messages.scrollHeight;
+        }
+
+        async function getBotResponse(message) {
+            return new Promise(resolve => {
+                setTimeout(() => {
+                    resolve("This is a simulated response.");
+                }, 1000);
+            });
+        }
+    </script>
+</body>
+</html>
